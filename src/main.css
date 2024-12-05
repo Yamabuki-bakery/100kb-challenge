@@ -2,7 +2,7 @@
   --light-text-color: #ffffe6;
   --dark-text-color: #1f050f;
 
-  --background-color: #fff5e3;
+  --background-color: #fffff6;
   --text-color: var(--dark-text-color);
   --accent-color: #ff9e37;
   --secondary-color: #ffb96e;
@@ -16,8 +16,20 @@
 } */
 
 body {
-  background-color: var(--background-color);
   color: var(--text-color);
+  position: relative;
+}
+
+.bg {
+  position: fixed;
+  z-index: -10;
+  inset: 0;
+  background-color: var(--background-color);
+  /* background: radial-gradient(
+    circle at 50% 0%, 
+    var(--background-color) 70%, 
+    var(--accent-color) 130%
+    ); */
 }
 
 /* 基本 layout */
@@ -26,6 +38,10 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+}
+
+header {
+  margin: 80px 0;
 }
 
 /* 基本樣式限定寬度居中 */
@@ -39,18 +55,19 @@ footer > div {
 
 main > div {
   max-width: 1000px;
-  margin: 3rem auto;
-  padding: 1rem;
+  margin: 2rem auto;
+  padding: 3rem 1rem;
 }
 
 /* 各個元件 */
 .title {
-  align-items: center;
+  align-items: start;
   display: flex;
   flex-direction: column;
 }
 
 .desc {
+  transform: translateZ(80px) translateY(-60px);
   font-size: 1.6rem;
   text-align: center;
   background-color: var(--secondary-color);
@@ -67,11 +84,32 @@ main > div {
   line-height: 3rem;
   font-weight: bold;
   background-color: var(--accent-color);
-  padding: 16px;
+  padding: 32px;
   aspect-ratio: 1;
   position: relative;
-  text-align: center;
   margin: 0 0 40px 0;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.my-auto {
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .bigfont::after {
@@ -86,15 +124,135 @@ main > div {
   right: 100%;
 }
 
+._3dview {
+  perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+._100kb {
+  transform-style: preserve-3d;
+  /* transform: rotate3d(-0.5, 0.7, 0, 40deg); */
+}
+
+.left_3d {
+  transform-style: preserve-3d;
+  transform: rotate3d(0, 0.7, 0, 40deg);
+}
+
+.right_3d {
+  transform-style: preserve-3d;
+  transform: rotate3d(0, 0.7, 0, -40deg);
+}
+
 ._100kb::before {
-  content: 'HTML 手撕大賽';
+  content: '';
   display: block;
+  position: absolute;
+  background-color: var(--accent-color);
+  width: 30%;
+  aspect-ratio: 1;
+  z-index: -1;
+  bottom: 100%;
+  left: 100%;
+}
+
+.far-shadow-left {
+  box-shadow: -30px -30px 70px 10px #00000033;
+}
+
+.far-shadow-right {
+  box-shadow: 30px -30px 70px 10px #00000033;
+}
+
+.match {
+  content: 'HTML 手撕大賽';
   position: absolute;
   background-color: var(--secondary-color);
   height: 50%;
   width: 24rem;
-  bottom: 0;
-  left: 80%;
+  bottom: -20%;
+  left: 50%;
   z-index: 2;
   font-size: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  transform: translateZ(80px);
+}
+
+.graph1 {
+  border-left: var(--text-color) 3px solid;
+  border-bottom: var(--text-color) 3px solid;
+  min-width: 400px;
+  aspect-ratio: 1;
+  align-items: end;
+  justify-content: space-between;
+  display: flex;
+  position: relative;
+}
+.graph1::before {
+  content: '加載時間⌛️';
+  position: absolute;
+  bottom: 95%;
+  /* right: 100%; */
+  transform: translateX(-105%);
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+.graph1::after {
+  content: '技術水平🧠';
+  position: absolute;
+  bottom: 0;
+  right: 0%;
+  transform: translateX(105%) translateY(50%);
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.bar, .gap {
+  /* margin-top: auto; */
+  width: 10%;
+}
+.bar {
+  background-color: var(--accent-color);
+  position: relative;
+}
+.bar::before {
+  content: var(--value);
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  text-align: center;
+  /* font-weight: bold; */
+}
+
+.bar::after {
+  content: var(--tag);
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: bold;
+}
+.graph1 :nth-child(2) {
+  filter: grayscale(0.8);
+}
+.graph1 :nth-child(4) {
+  filter: grayscale(0.8);
+}
+.graph1 :nth-child(6) {
+  filter: grayscale(0.8);
+}
+
+.arrow {
+  transform: rotate(15deg);
+  background-image: linear-gradient( -45deg, rgb(252, 98, 98) 2.7%, rgb(255, 166, 98) 15.1%, rgba(233,245,0,1) 29.5%, rgba(23,255,17,1) 45.8%, rgba(29,255,255,1) 61.5%, rgb(63, 73, 255) 76.4%, rgba(202,0,253,1) 92.4% );  width: 200px;
+  height: 200px;
+  clip-path: polygon(0 5%, 5% 0, 90% 85%, 100% 50%, 100% 100%,
+  50% 100%, 85% 90%);
 }
